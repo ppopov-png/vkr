@@ -1,0 +1,208 @@
+{
+  "AUC_class_-1": 0.8685714051376268,
+  "AUC_class_0": 0.7272827611198516,
+  "AUC_class_1": 0.6938994345596077,
+  "macro_auc": 0.763251200272362,
+  "weighted_auc": 0.7276355671963262,
+  "class_counts": {
+    "0": 326,
+    "1": 4293,
+    "2": 1317
+  },
+  "VUS_exact": null,
+  "VUS_monte_carlo": 0.00401,
+  "N_class_-1": 326,
+  "N_class_0": 4293,
+  "N_class_1": 1317,
+  "features_used": [
+    "ESGScore_lag1",
+    "asset_growth_lag1",
+    "beta_to_ust10y_lag1",
+    "cash_and_equivalents_lag1",
+    "cash_to_assets_lag1",
+    "current_assets_lag1",
+    "current_liabilities_lag1",
+    "current_ratio_lag1",
+    "debt_to_assets_lag1",
+    "debt_to_equity_lag1",
+    "delta_ESG_lag1",
+    "enterprise_value_lag1",
+    "environmentalScore_lag1",
+    "governanceScore_lag1",
+    "log_assets_lag1",
+    "log_market_cap_lag1",
+    "market_cap_lag1",
+    "net_debt_lag1",
+    "net_debt_to_assets_lag1",
+    "net_income_lag1",
+    "number_of_shares_lag1",
+    "sales_lag1",
+    "socialScore_lag1",
+    "stock_return_q_lag1",
+    "stock_vol_q_lag1",
+    "total_assets_lag1",
+    "total_debt_lag1",
+    "total_dividends_lag1",
+    "total_equity_lag1"
+  ],
+  "mae": 0.25943396226415094,
+  "best_label": "drop_beta_to_sp500_lag1",
+  "n_features": 29,
+  "mae_candidates": [
+    {
+      "label": "all_features",
+      "mae": 0.2633086253369272,
+      "n_features": 30
+    },
+    {
+      "label": "drop_ESGScore_lag1",
+      "mae": 0.26212938005390835,
+      "n_features": 29
+    },
+    {
+      "label": "drop_asset_growth_lag1",
+      "mae": 0.26566711590296493,
+      "n_features": 29
+    },
+    {
+      "label": "drop_beta_to_sp500_lag1",
+      "mae": 0.25943396226415094,
+      "n_features": 29
+    },
+    {
+      "label": "drop_beta_to_ust10y_lag1",
+      "mae": 0.2626347708894879,
+      "n_features": 29
+    },
+    {
+      "label": "drop_cash_and_equivalents_lag1",
+      "mae": 0.2606132075471698,
+      "n_features": 29
+    },
+    {
+      "label": "drop_cash_to_assets_lag1",
+      "mae": 0.261455525606469,
+      "n_features": 29
+    },
+    {
+      "label": "drop_current_assets_lag1",
+      "mae": 0.26297169811320753,
+      "n_features": 29
+    },
+    {
+      "label": "drop_current_liabilities_lag1",
+      "mae": 0.26246630727762804,
+      "n_features": 29
+    },
+    {
+      "label": "drop_current_ratio_lag1",
+      "mae": 0.2619609164420485,
+      "n_features": 29
+    },
+    {
+      "label": "drop_debt_to_assets_lag1",
+      "mae": 0.2633086253369272,
+      "n_features": 29
+    },
+    {
+      "label": "drop_debt_to_equity_lag1",
+      "mae": 0.2628032345013477,
+      "n_features": 29
+    },
+    {
+      "label": "drop_delta_ESG_lag1",
+      "mae": 0.2633086253369272,
+      "n_features": 29
+    },
+    {
+      "label": "drop_enterprise_value_lag1",
+      "mae": 0.2617924528301887,
+      "n_features": 29
+    },
+    {
+      "label": "drop_environmentalScore_lag1",
+      "mae": 0.26162398921832886,
+      "n_features": 29
+    },
+    {
+      "label": "drop_governanceScore_lag1",
+      "mae": 0.26128706199460916,
+      "n_features": 29
+    },
+    {
+      "label": "drop_log_assets_lag1",
+      "mae": 0.261455525606469,
+      "n_features": 29
+    },
+    {
+      "label": "drop_log_market_cap_lag1",
+      "mae": 0.26044474393531,
+      "n_features": 29
+    },
+    {
+      "label": "drop_market_cap_lag1",
+      "mae": 0.2606132075471698,
+      "n_features": 29
+    },
+    {
+      "label": "drop_net_debt_lag1",
+      "mae": 0.2617924528301887,
+      "n_features": 29
+    },
+    {
+      "label": "drop_net_debt_to_assets_lag1",
+      "mae": 0.2631401617250674,
+      "n_features": 29
+    },
+    {
+      "label": "drop_net_income_lag1",
+      "mae": 0.26398247978436656,
+      "n_features": 29
+    },
+    {
+      "label": "drop_number_of_shares_lag1",
+      "mae": 0.2641509433962264,
+      "n_features": 29
+    },
+    {
+      "label": "drop_sales_lag1",
+      "mae": 0.2628032345013477,
+      "n_features": 29
+    },
+    {
+      "label": "drop_socialScore_lag1",
+      "mae": 0.2601078167115903,
+      "n_features": 29
+    },
+    {
+      "label": "drop_stock_return_q_lag1",
+      "mae": 0.2599393530997305,
+      "n_features": 29
+    },
+    {
+      "label": "drop_stock_vol_q_lag1",
+      "mae": 0.261455525606469,
+      "n_features": 29
+    },
+    {
+      "label": "drop_total_assets_lag1",
+      "mae": 0.26246630727762804,
+      "n_features": 29
+    },
+    {
+      "label": "drop_total_debt_lag1",
+      "mae": 0.2611185983827493,
+      "n_features": 29
+    },
+    {
+      "label": "drop_total_dividends_lag1",
+      "mae": 0.27206873315363883,
+      "n_features": 29
+    },
+    {
+      "label": "drop_total_equity_lag1",
+      "mae": 0.26246630727762804,
+      "n_features": 29
+    }
+  ]
+}

@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Прогнозирование изменения дивидендов — ВКР</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
+  <style>
+    :root {
+      --nav-bg: #0d1b2a;
+      --bg-1: #0d1b2a;
+      --bg-2: #111827;
+      --accent-green: #16a34a;
+      --accent-orange: #f97316;
+      --text-main: #f8fafc;
+      --muted: #cbd5e1;
+      --card-bg: #F7F7FA;
+      --card-border: #E2E2E6;
+      --graphite: #1f2937;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: 'Inter', 'Roboto', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: radial-gradient(circle at 20% 20%, rgba(22,163,74,0.08), transparent 35%), linear-gradient(135deg, var(--bg-1), var(--bg-2));
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+    a { color: #4ade80; text-decoration: none; }
+    h1, h2, h3, h4 { margin: 0 0 12px; color: var(--graphite); }
+    p { margin: 0 0 12px; }
+    .layout {
+      display: flex;
+      justify-content: center;
+      padding: 40px 24px 80px;
+      gap: 32px;
+    }
+    main {
+      max-width: 1100px;
+      width: 100%;
+    }
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border-radius: 18px;
+      padding: 48px;
+      background: linear-gradient(120deg, rgba(13,27,42,0.92), rgba(31,41,55,0.92));
+      box-shadow: 0 24px 60px rgba(0,0,0,0.25);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .hero::after, .hero::before {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.35;
+    }
+    .hero::after {
+      width: 360px; height: 360px;
+      background: var(--accent-green);
+      top: -120px; right: -140px;
+    }
+    .hero::before {
+      width: 280px; height: 280px;
+      background: var(--accent-orange);
+      bottom: -140px; left: -80px;
+    }
+    .hero-content { position: relative; z-index: 1; }
+    .badge {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.1);
+      color: var(--muted);
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      margin-bottom: 12px;
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+    .hero h1 {
+      color: #fff;
+      font-size: 32px;
+      margin-bottom: 12px;
+    }
+    .subtitle {
+      color: #e2e8f0;
+      max-width: 840px;
+      margin-bottom: 20px;
+    }
+    .meta {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      color: #e5e7eb;
+      margin-top: 18px;
+    }
+    .meta-item {
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .card {
+      background: var(--card-bg);
+      color: #111827;
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 28px;
+      margin-top: 24px;
+      box-shadow: 0 18px 30px rgba(17,24,39,0.06);
+    }
+    .card h2 { color: var(--graphite); }
+    .card h3 { color: #0f172a; }
+    .section-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .toc-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 10px;
+    }
+    .toc-list li a {
+      display: block;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: #ececf5;
+      border: 1px solid #e0e0ea;
+      color: #0f172a;
+      font-weight: 600;
+    }
+    .toc-list li a:hover { border-color: var(--accent-green); }
+    .nav {
+      position: sticky;
+      top: 32px;
+      align-self: flex-start;
+      width: 280px;
+      background: rgba(13,27,42,0.95);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 18px 16px;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.35);
+      height: fit-content;
+    }
+    .nav h3 {
+      color: #fff;
+      margin-bottom: 12px;
+      font-size: 16px;
+    }
+    .nav a {
+      display: block;
+      color: #e5e7eb;
+      padding: 10px 12px;
+      border-radius: 12px;
+      margin-bottom: 6px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      font-weight: 600;
+    }
+    .nav a:hover { border-color: var(--accent-orange); color: #fff; }
+    .nav a.active { border-color: var(--accent-green); color: #fff; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      font-size: 15px;
+    }
+    th, td {
+      padding: 10px 12px;
+      text-align: left;
+      border-bottom: 1px solid #dcdce2;
+    }
+    th {
+      background: #e6e6f0;
+      color: #111827;
+      font-weight: 700;
+    }
+    tbody tr:nth-child(odd) { background: #f0f0f6; }
+    .infobox {
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin: 12px 0;
+      color: #0b1727;
+      border: 1px solid rgba(0,0,0,0.05);
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    .infobox strong { display: block; }
+    .info-green { background: rgba(22,163,74,0.12); border-color: rgba(22,163,74,0.35); }
+    .info-orange { background: rgba(249,115,22,0.12); border-color: rgba(249,115,22,0.35); }
+    .info-blue { background: rgba(14,165,233,0.12); border-color: rgba(14,165,233,0.35); }
+    .badge-small {
+      padding: 4px 8px;
+      border-radius: 8px;
+      background: #e6e6f0;
+      font-size: 12px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+      margin-top: 14px;
+    }
+    .graph-card {
+      background: #fff;
+      border: 1px dashed #d8d8e4;
+      min-height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+    }
+    .graph-card img {
+      max-width: 100%;
+      max-height: 240px;
+      object-fit: contain;
+    }
+    .iframe-wrap {
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #dfe3eb;
+      background: #fff;
+      margin-top: 12px;
+    }
+    blockquote {
+      margin: 14px 0;
+      padding: 12px 16px;
+      border-left: 4px solid var(--accent-orange);
+      background: #f8fafc;
+      color: #1f2937;
+      border-radius: 8px;
+    }
+    code {
+      background: #e7e7ef;
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-size: 13px;
+      color: #0f172a;
+    }
+    footer {
+      margin-top: 32px;
+      color: #cbd5e1;
+      text-align: center;
+      font-size: 13px;
+    }
+    @media (max-width: 1180px) {
+      .layout { flex-direction: column; }
+      .nav { position: relative; width: 100%; }
+      .layout { padding: 24px 16px 60px; }
+      .hero { padding: 36px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <main>
+      <section class="hero" id="top">
+        <div class="hero-content">
+          <div class="badge">Выпускная квалификационная работа</div>
+          <h1>Прогнозирование направления изменения дивидендов публичных компаний методами машинного обучения</h1>
+          <p class="subtitle">
+            Современный аналитический отчёт с ROC/3D ROC визуализацией, сравнением спецификаций и экономическими выводами.
+          </p>
+          <div class="meta">
+            <div class="meta-item"><strong>Автор:</strong><br> Павел Попов</div>
+            <div class="meta-item"><strong>Программа:</strong><br> International Bachelor in Economics and Business</div>
+            <div class="meta-item"><strong>Год:</strong><br> 2026</div>
+            <div class="meta-item"><strong>Научный руководитель:</strong><br> Кузьмина Елена Валерьевна</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" id="vvedenie">
+        <h2>Введение</h2>
+        <h3>Актуальность</h3>
+        <p>Дивиденды являются одним из ключевых источников дохода для акционеров и важным индикатором финансовой устойчивости компании. Повышение или снижение дивидендов оказывает влияние на стоимость компании, сигнализирует инвесторам о перспективах и стратегии менеджмента. Способность прогнозировать направление изменения дивидендов (рост, сохранение или снижение) даёт значимое преимущество аналитикам, инвесторам и корпоративным менеджерам.</p>
+        <p>Рынки стали более сложными, и классические линейные методы анализа (например, модель Линтнера) теряют эффективность, поскольку не учитывают нелинейные закономерности в данных. Методы машинного обучения позволяют выявлять сложные связи между финансовыми, рыночными, ESG-факторами и будущими решениями о дивидендах.</p>
+        <h3>Мотивация</h3>
+        <p>Почти отсутствуют научные работы, посвящённые предсказанию направления изменения дивидендов. Большинство исследований анализирует уровень дивидендов, а не их будущие изменения. Тем не менее направление (рост/падение) вызывает существенно более сильную реакцию рынка.</p>
+        <h3>Цель</h3>
+        <p>Разработать и оценить ML-модель, классифицирующую изменение дивидендов на следующий квартал.</p>
+        <h3>Задачи</h3>
+        <ul>
+          <li>собрать квартальный панельный датасет;</li>
+          <li>построить две спецификации модели (дельты и лаговые изменения);</li>
+          <li>обучить несколько ML-алгоритмов;</li>
+          <li>сравнить качество по ROC-AUC;</li>
+          <li>визуализировать ROC и 3D ROC;</li>
+          <li>интерпретировать значимые признаки;</li>
+          <li>сформировать экономические и менеджериальные выводы.</li>
+        </ul>
+        <h3>Объект и предмет исследования</h3>
+        <p>объект — публичные компании США; предмет — факторы, влияющие на направление изменения дивидендов.</p>
+      </section>
+
+      <section class="card" id="obzor">
+        <h2>Обзор литературы</h2>
+        <h3>Теории дивидендной политики</h3>
+        <p>(Линтнер, сигнальная теория, теория жизненного цикла, free cash-flow hypothesis)</p>
+        <h3>ML в корпоративных финансах</h3>
+        <p>Машинное обучение успешно применяется к оценке доходностей, банкротств, кредитного риска, но не к предсказанию изменения дивидендов.</p>
+        
+      </section>
+
+      <section class="card" id="metod">
+        <h2>Методология и данные</h2>
+        <h3>Источники данных</h3>
+        <ul>
+          <li>NASDAQ Dividend History</li>
+          <li>Отчётность: активы, капитал, долг, прибыль, выручка</li>
+          <li>Рыночные данные: доходность, волатильность, беты</li>
+          <li>ESG данные</li>
+        </ul>
+        <h3>Признаки</h3>
+        <div class="section-grid">
+          <div>
+            <h4>Финансовые уровни</h4>
+            <p>total_assets, total_equity, total_debt, market_cap, enterprise_value, log_assets, log_market_cap</p>
+            <h4>Ликвидность и денежные средства</h4>
+            <p>cash_and_equivalents, current_ratio, cash_to_assets</p>
+            <h4>Долговая нагрузка</h4>
+            <p>debt_to_assets, debt_to_equity, net_debt</p>
+          </div>
+          <div>
+            <h4>Рынок</h4>
+            <p>stock_return_q, stock_vol_q, beta_to_sp500, beta_to_ust10y</p>
+            <h4>Прибыль и потоки</h4>
+            <p>net_income, sales, asset_growth</p>
+            <h4>ESG факторы</h4>
+            <p>ESGScore, environmentalScore, socialScore, governanceScore</p>
+            <h4>Дивиденды</h4>
+            <p>DPS, total_dividends</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" id="specs">
+        <h2>Спецификации модели (A и B)</h2>
+        <h3>Спецификация A — текущие изменения (дельты)</h3>
+        <p>Используется формула <span class="math">\( \Delta X(t) = X(t) - X(t-1) \)</span>. Это свежие изменения, отражающие краткосрочные сдвиги в бизнесе.</p>
+        <div class="section-grid">
+          <div class="infobox info-orange">
+            <div><strong>Результаты (A):</strong><br>AUC class 0: 0.692<br>AUC class 1: 0.653<br>AUC class 2: 0.645<br>macro AUC ≈ 0.66</div>
+          </div>
+          <div class="infobox info-blue">
+            <div><strong>Интерпретация:</strong><br>Изменения слишком шумные → слабый сигнал.</div>
+          </div>
+        </div>
+        <div class="gallery">
+		  <div class="graph-card">
+			<span class="badge-small">ROC class 0</span>
+			<img src="plots/roc_class_0.png" alt="ROC class 0">
+		  </div>
+		  <div class="graph-card">
+			<span class="badge-small">ROC class 1</span>
+			<img src="plots/roc_class_1.png" alt="ROC class 1">
+		  </div>
+		  <div class="graph-card">
+			<span class="badge-small">ROC class 2</span>
+			<img src="plots/roc_class_2.png" alt="ROC class 2">
+		  </div>
+		  <div class="graph-card">
+			<span class="badge-small">ROC all classes</span>
+			<img src="plots/roc_all_classes.png" alt="ROC all classes">
+		  </div>
+		</div>
+
+        <h3 style="margin-top:22px;">Спецификация B — лаговые изменения</h3>
+        <p>Используется формула <span class="math">\( \Delta X(t-1) = X(t-1) - X(t-2) \)</span>. Логика: изменения становятся предиктивными только через квартал.</p>
+        <div class="section-grid">
+          <div class="infobox info-green">
+            <div><strong>Результаты (B):</strong><br>AUC class 0: 0.872<br>AUC class 1: 0.727<br>AUC class 2: 0.694<br>macro AUC ≈ 0.76</div>
+          </div>
+          <div class="infobox info-blue">
+            <div><strong>Интерпретация:</strong><br>Сильный улучшенный сигнал, лаговые изменения отражают инерционность дивидендной политики.</div>
+          </div>
+        </div>
+        <div class="gallery">
+		  <div class="graph-card">
+			<span class="badge-small">ROC class 0</span>
+			<img src="plots2/roc_class_0.png" alt="ROC class 0">
+		  </div>
+		  <div class="graph-card">
+			<span class="badge-small">ROC class 1</span>
+			<img src="plots2/roc_class_1.png" alt="ROC class 1">
+		  </div>
+		  <div class="graph-card">
+			<span class="badge-small">ROC class 2</span>
+			<img src="plots2/roc_class_2.png" alt="ROC class 2">
+		  </div>
+		  <div class="graph-card">
+			<span class="badge-small">ROC all classes</span>
+			<img src="plots2/roc_all_classes.png" alt="ROC all classes">
+		  </div>
+		  <div class="graph-card">
+			<span class="badge-small">3D ROC surface — Spec B (plots2)</span>
+			<div class="iframe-wrap">
+			  <iframe
+				src="plots2/roc_surface_3d.html"
+				title="3D ROC Surface Spec B"
+				frameborder="0"
+				loading="lazy"
+				width="100%"
+				height="480">
+			  </iframe>
+			</div>
+		  </div>
+		</div>
+
+        <h3 style="margin-top:22px;">Сравнение спецификаций</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Показатель</th>
+              <th>Model A (ΔX(t))</th>
+              <th>Model B (ΔX(t–1))</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Class 0 AUC</td><td>0.692</td><td>0.872</td></tr>
+            <tr><td>Class 1 AUC</td><td>0.653</td><td>0.727</td></tr>
+            <tr><td>Class 2 AUC</td><td>0.645</td><td>0.694</td></tr>
+            <tr><td>Macro AUC</td><td>0.66</td><td>0.76</td></tr>
+          </tbody>
+        </table>
+        <div class="infobox info-green">
+          <div><strong>Вывод:</strong> лаговые изменения значительно информативнее.</div>
+        </div>
+      </section>
+
+      <section class="card" id="models">
+        <h2>Модели машинного обучения</h2>
+        <p>Испытанные модели:</p>
+        <ul>
+          <li>Logistic Regression</li>
+          <li>Random Forest</li>
+          <li>CatBoost</li>
+          <li>XGBoost (лучшая)</li>
+        </ul>
+        <table>
+          <thead>
+            <tr><th>Модель</th><th>MAE</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>LR</td><td>1.154</td></tr>
+            <tr><td>RF</td><td>0.263</td></tr>
+            <tr><td>CatBoost</td><td>0.264</td></tr>
+            <tr><td>XGBoost</td><td>0.256</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="card" id="roc">
+        <h2>ROC-анализ</h2>
+        <div class="gallery">
+		  <div class="graph-card">
+			<span class="badge-small">ROC class 0</span>
+			<img src="results_xgboost/roc_class_0.png" alt="ROC class 0">
+		  </div>
+		  <div class="graph-card">
+			<span class="badge-small">ROC class 1</span>
+			<img src="results_xgboost/roc_class_1.png" alt="ROC class 1">
+		  </div>
+		  <div class="graph-card">
+			<span class="badge-small">ROC class 2</span>
+			<img src="results_xgboost/roc_class_2.png" alt="ROC class 2">
+		  </div>
+		  <div class="graph-card">
+			<span class="badge-small">ROC all classes</span>
+			<img src="results_xgboost/roc_all_classes.png" alt="ROC all classes">
+		  </div>
+		  <div class="graph-card">
+			<span class="badge-small">3D ROC surface</span>
+			<img src="results_xgboost/roc_surface_3d.png" alt="3D ROC surface">
+		  </div>
+		</div>
+        <blockquote>модель лучше всего предсказывает «снижение дивидендов» (класс 0); рост дивидендов предсказывается слабее (редкое событие).</blockquote>
+      </section>
+
+      <section class="card" id="roc3d">
+        <h2>3D ROC-поверхность</h2>
+        <div class="iframe-wrap">
+			<iframe
+			src="results_xgboost/roc_surface_3d.html"
+			title="3D ROC Surface XGBoost"
+			frameborder="0"
+			loading="lazy"
+			width="100%"
+			height="480">
+		  </iframe>
+        </div>
+        <div class="infobox info-blue">
+          <div><strong>Интерпретация:</strong> поверхность выше диагонали → модель уверенная; объём под 3D ROC максимален по классу 0 → падение предсказывается лучше всего.</div>
+        </div>
+      </section>
+
+      <section class="card" id="importance">
+        <h2>Анализ значимости признаков (Feature Importance)</h2>
+        <p>Этот раздел важен: объяснить не просто важные признаки, но их экономический эффект.</p>
+        <ol>
+          <li><strong>Прошлые дивиденды (total_dividends_lag1)</strong> — сильная инерция дивидендной политики. Рост прошлого DPS повышает вероятность текущего роста.</li>
+          <li><strong>Долговая нагрузка (debt_to_assets_lag1, debt_to_equity_lag1)</strong> — высокий долг снижает возможность выплат → повышает вероятность снижения дивидендов.</li>
+          <li><strong>Ликвидность (cash_to_assets, current_ratio)</strong> — низкая ликвидность → снижение DPS; высокая — стабильность.</li>
+          <li><strong>Прибыль и операционный поток (net_income_lag1)</strong> — прибыльные периоды коррелируют с ростом дивидендов.</li>
+          <li><strong>Волатильность и доходность</strong> — высокая волатильность → риск → падение дивидендов.</li>
+          <li><strong>ESG</strong> — высокое governanceScore снижает вероятность резких срезов дивидендов.</li>
+        </ol>
+      </section>
+
+      <section class="card" id="economics">
+        <h2>Экономическое применение</h2>
+        <p><strong>Оценка стоимости и сценарии DCF.</strong> Прогноз направления дивидендов позволяет уточнять денежные потоки в DCF-модели: рост дивидендов добавляет к FCFE и снижает стоимость капитала через эффект уверенности рынка; снижение — сигнал к повышению риска и корректировке дисконта.</p>
+        <p><strong>Факторные стратегии.</strong> Сигналы модели можно использовать как фактор «dividend momentum»: формировать лонг-портфель компаний с ожидаемым ростом DPS и шорт/андервейт — с ожидаемым снижением. Это повышает ожидаемую доходность и улучшает соотношение доходность/риск.</p>
+        <p><strong>Аллокация капитала.</strong> Инвестор или фонд может перераспределять капитал между дивидендными и ростовыми стратегиями заранее, опираясь на вероятности классов. Ожидаемый срез дивидендов — повод перейти в компании с устойчивым cash-flow или облигации.</p>
+        <p><strong>Покрытие аналитиков.</strong> Раннее выявление риска снижения дивидендов помогает обновлять целевые цены и рекомендации, избегая репутационных потерь от опоздавших даунгрейдов.</p>
+        <p><strong>Хеджирование кумулятивного дохода.</strong> Для портфелей, ориентированных на дивидендный поток, модель служит источником хедж-сигналов: сокращение позиции или покупка опционов в кварталах с высокой вероятностью падения DPS.</p>
+      </section>
+
+      <section class="card" id="management">
+        <h2>Менеджериальное применение</h2>
+        <p><strong>Планирование payout ratio.</strong> Менеджмент может сравнивать прогноз модели с внутренними планами и стресс-сценариями ликвидности: если вероятность снижения высока, корректировать payout до объявления, сохраняя предсказуемость политики.</p>
+        <p><strong>Структура капитала и заимствования.</strong> Прогнозы снижения DPS сигнализируют о нагрузке на денежный поток: их можно использовать для выбора окна рефинансирования долга, выпуска облигаций или обратного выкупа, чтобы не провоцировать рынок двойным негативным сигналом.</p>
+        <p><strong>Ранние сигналы операционного риска.</strong> Высокая вероятность падения дивидендов часто коррелирует с просадкой прибыли или ростом волатильности. Модель выступает триггером для усиленного контроля оборотного капитала, запасов и CAPEX.</p>
+        <p><strong>Коммуникация с инвесторами.</strong> Если вероятно сохранение или рост дивидендов, IR-команда может заранее готовить guidance и разъяснения, снижая информационную асимметрию и волатильность вокруг ex-div даты.</p>
+        <p><strong>Политика устойчивости.</strong> Включение ESG-факторов в модель позволяет оценивать, как улучшение governance снижает вероятность срезов. Это даёт аргументы для советов директоров в пользу инвестиций в прозрачность и контроль.</p>
+      </section>
+
+      <section class="card" id="conclusion">
+        <h2>Выводы</h2>
+        <ul>
+          <li>Лаговые изменения признаков дают устойчивый предиктивный сигнал: macro AUC ≈ 0.76 против 0.66 у дельт, что подтверждает инерционность дивидендной политики и задержку реакции на финансовые изменения.</li>
+          <li>XGBoost показал наилучший баланс качества и MAE (0.256), что делает его базовой моделью для продакшн-использования и регулярного обновления.</li>
+          <li>Ключевые драйверы сигнала: инерция прошлых дивидендов, долговая нагрузка, ликвидность, прибыльность и метрики риска рынка; ESG governance уменьшает вероятность резких срезов.</li>
+          <li>Практическая ценность: улучшение DCF/FCFE-оценок, факторы для дивидендных и лонг/шорт стратегий, ранние управленческие сигналы для payout, заимствований и коммуникации с инвесторами.</li>
+          <li>Дальнейшие шаги: расширить датасет (больше регионов/секторов), добавить калибровку вероятностей, протестировать устойчивость на out-of-time срезах и внедрить мониторинг дрейфа признаков.</li>
+        </ul>
+      </section>
+
+      <footer>
+        ВКР — Прогнозирование направления изменения дивидендов · Павел Попов · 2026
+      </footer>
+    </main>
+
+    <aside class="nav" aria-label="Секция навигации">
+      <h3>Навигация</h3>
+      <a href="#top">Титульный экран</a>
+      <a href="#vvedenie">Введение</a>
+      <a href="#obzor">Обзор литературы</a>
+      <a href="#metod">Методология и данные</a>
+      <a href="#specs">Спецификации</a>
+      <a href="#models">ML модели</a>
+      <a href="#roc">ROC-анализ</a>
+      <a href="#roc3d">3D ROC</a>
+      <a href="#importance">Feature importance</a>
+      <a href="#economics">Экономическое применение</a>
+      <a href="#management">Менеджмент</a>
+      <a href="#conclusion">Выводы</a>
+    </aside>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      renderMathInElement(document.body, {
+        delimiters: [
+          {left: "\\(", right: "\\)", display: false},
+          {left: "\\[", right: "\\]", display: true}
+        ]
+      });
+    });
+    const navLinks = document.querySelectorAll('.nav a');
+    const sections = Array.from(navLinks).map(link => document.querySelector(link.getAttribute('href'))).filter(Boolean);
+    window.addEventListener('scroll', () => {
+      const scrollPos = window.scrollY + 120;
+      sections.forEach((section, idx) => {
+        if (scrollPos >= section.offsetTop && scrollPos < section.offsetTop + section.offsetHeight) {
+          navLinks.forEach(l => l.classList.remove('active'));
+          navLinks[idx].classList.add('active');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
