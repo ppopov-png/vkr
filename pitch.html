@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Research pitch – Dividend change forecasting</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-1: #0d1b2a;
+      --bg-2: #111827;
+      --accent-green: #16a34a;
+      --accent-orange: #f97316;
+      --text-main: #f8fafc;
+      --muted: #cbd5e1;
+      --card-bg: #f7f7fa;
+      --card-border: #e2e2e6;
+      --graphite: #1f2937;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: radial-gradient(circle at 20% 20%, rgba(22,163,74,0.08), transparent 35%), linear-gradient(135deg, var(--bg-1), var(--bg-2));
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 40px 16px 60px;
+    }
+    .wrap {
+      max-width: 1100px;
+      width: 100%;
+    }
+    .hero {
+      position: relative;
+      border-radius: 18px;
+      padding: 32px 28px;
+      background: linear-gradient(120deg, rgba(13,27,42,0.95), rgba(31,41,55,0.95));
+      box-shadow: 0 24px 60px rgba(0,0,0,0.25);
+      border: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 22px;
+      overflow: hidden;
+    }
+    .hero::after,
+    .hero::before {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.35;
+    }
+    .hero::after {
+      width: 260px;
+      height: 260px;
+      background: var(--accent-green);
+      top: -80px;
+      right: -120px;
+    }
+    .hero::before {
+      width: 220px;
+      height: 220px;
+      background: var(--accent-orange);
+      bottom: -120px;
+      left: -80px;
+    }
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+    }
+    .hero-badge {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.18);
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+    .hero-title {
+      margin: 0 0 6px;
+      font-size: 24px;
+      color: #fff;
+    }
+    .hero-sub {
+      margin: 0 0 12px;
+      color: #e2e8f0;
+      max-width: 720px;
+      font-size: 14px;
+    }
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      font-size: 13px;
+      color: #e5e7eb;
+    }
+    .hero-meta span {
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+    }
+    .hero-actions {
+      margin-top: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .btn-main {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 9px 18px;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(135deg, #22c55e, #22d3ee);
+      color: #0b1727;
+      font-weight: 700;
+      font-size: 14px;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 14px 30px rgba(0,0,0,0.32);
+      transition: transform 0.15s ease, box-shadow 0.2s ease, opacity 0.15s ease;
+    }
+    .btn-main:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 36px rgba(0,0,0,0.38);
+      opacity: 0.96;
+    }
+
+    .card {
+      background: var(--card-bg);
+      color: #111827;
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 24px 20px;
+      box-shadow: 0 18px 30px rgba(17,24,39,0.08);
+    }
+    .card h2 {
+      margin: 0 0 12px;
+      color: var(--graphite);
+      font-size: 20px;
+    }
+    .pitch-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    .pitch-table th,
+    .pitch-table td {
+      padding: 8px 10px;
+      border: 1px solid #d4d4e0;
+      vertical-align: top;
+    }
+    .pitch-table th {
+      width: 130px;
+      background: #e6e6f0;
+      font-weight: 700;
+      text-align: left;
+    }
+    .pitch-table td {
+      background: #f9f9ff;
+    }
+    .pitch-label {
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .pitch-small {
+      font-size: 12px;
+      color: #4b5563;
+    }
+    footer {
+      margin-top: 18px;
+      text-align: center;
+      font-size: 12px;
+      color: #e5e7eb;
+    }
+    @media (max-width: 720px) {
+      .hero {
+        padding: 24px 18px;
+      }
+      .card {
+        padding: 18px 14px;
+      }
+      .pitch-table th,
+      .pitch-table td {
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <div class="hero-inner">
+        <div class="hero-badge">Pitch template — Robert Faff (adapted)</div>
+        <h1 class="hero-title">Dividend change forecasting for NASDAQ companies</h1>
+        <p class="hero-sub">
+          Short research pitch for the bachelor thesis: predicting the direction of dividend changes (cut / unchanged / increase) using machine learning and financial, market and ESG data.
+        </p>
+        <div class="hero-meta">
+          <span>Pavel Popov</span>
+          <span>HSE · International Bachelor in Economics and Business</span>
+          <span>Graduation year: 2026</span>
+        </div>
+        <div class="hero-actions">
+          <a href="index.html" class="btn-main">Back to main page</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="card">
+      <h2>Pitch table (THREE–TWO–ONE)</h2>
+      <table class="pitch-table">
+        <tr>
+          <th>(A) Working title</th>
+          <td>
+            <div class="pitch-label">Forecasting dividend policy changes with machine learning</div>
+            <div class="pitch-small">Evidence from NASDAQ dividend-paying firms (quarterly panel).</div>
+          </td>
+        </tr>
+        <tr>
+          <th>(B) Basic research question</th>
+          <td>
+            Can we predict the direction of next-quarter dividend changes (cut / unchanged / increase) for listed companies using financial statements, market factors and ESG scores?
+          </td>
+        </tr>
+        <tr>
+          <th>(C) Key paper(s)</th>
+          <td>
+            Lintner (1956) “Distribution of Incomes of Corporations Among Dividends, Retained Earnings, and Taxes”;<br/>
+            Baker & Wurgler (2004) “A catering theory of dividends”;<br/>
+            Recent papers on ML in corporate finance and cash-flow forecasting.
+          </td>
+        </tr>
+        <tr>
+          <th>(D) Motivation / Puzzle</th>
+          <td>
+            Dividend cuts and increases are strong signals for investors. Classical models focus on the dividend level or payout ratio, but not on the <em>direction</em> of changes in the near future.
+            At the same time, ML tools are widely used for credit risk and bankruptcy prediction, yet almost never for multi-class dividend change forecasts.
+            The puzzle: can modern ML models extract a stable signal about future dividend actions from standard accounting, market and ESG data?
+          </td>
+        </tr>
+        <tr>
+          <th>(E) Idea</th>
+          <td>
+            Build a quarterly panel for NASDAQ firms, label three classes of dividend change (–1 cut, 0 unchanged, +1 increase) and compare two model specifications:
+            (i) concurrent changes in fundamentals and market variables; (ii) lagged changes (previous quarter).
+            Train ML models (logit, Random Forest, CatBoost, XGBoost) and evaluate out-of-sample ROC / 3D ROC to see whether lagged dynamics carry more predictive power.
+          </td>
+        </tr>
+        <tr>
+          <th>(F) Data</th>
+          <td>
+            <ul>
+              <li>NASDAQ dividend history (declaration / record / payment dates, DPS, total dividends);</li>
+              <li>Quarterly financials: assets, equity, debt, cash, income, sales, working capital;</li>
+              <li>Market data: prices, quarterly returns and volatility, betas to S&amp;P 500 and UST 10Y;</li>
+              <li>ESG scores (overall and E/S/G sub-scores).</li>
+            </ul>
+            Time span: about 10–15 years, quarterly frequency, unbalanced panel.
+          </td>
+        </tr>
+        <tr>
+          <th>(G) Tools</th>
+          <td>
+            <ul>
+              <li>Python (pandas, scikit-learn, XGBoost, CatBoost, Plotly);</li>
+              <li>Multi-class ROC and 3D ROC surfaces for model comparison;</li>
+              <li>Drop-one and permutation feature importance to interpret drivers of the signal;</li>
+              <li>Basic statistical tests and robustness checks (train / test split, out-of-time validation).</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <th>(H) What’s new?</th>
+          <td>
+            <ul>
+              <li>Focus on the <strong>direction</strong> of dividend changes (cut / unchanged / increase), not on the level only;</li>
+              <li>Systematic comparison of concurrent vs lagged changes in fundamentals as predictors;</li>
+              <li>Use of modern ML (boosting) and 3D ROC visualisation in a dividend-policy setting;</li>
+              <li>Explicit economic and managerial interpretation of feature importance (debt, liquidity, ESG, etc.).</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <th>(I) So what?</th>
+          <td>
+            <ul>
+              <li>For investors: earlier warning signals about dividend cuts and more confidence in dividend-growth strategies;</li>
+              <li>For valuation: better inputs for DCF / FCFE models and scenario analysis of payout policies;</li>
+              <li>For managers: feedback on how leverage, liquidity and governance affect the credibility of stable dividend policies;</li>
+              <li>For academia: example of how ML tools can be integrated into classical dividend-policy research.</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <th>(J) Contribution</th>
+          <td>
+            <ul>
+              <li>An open, clearly documented ML pipeline for dividend change prediction;</li>
+              <li>Evidence that lagged changes in fundamentals explain dividend actions better than concurrent changes (higher macro AUC);</li>
+              <li>Feature-level insights on the role of past dividends, leverage, liquidity, profitability and ESG;</li>
+              <li>Visual, web-based report (ROC and 3D ROC) that can be reused for teaching and further research.</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <th>(K) Other considerations</th>
+          <td>
+            <ul>
+              <li>Target outlet: bachelor thesis at HSE; later, potential working paper or blog post on ML in dividend policy;</li>
+              <li>Risks: data quality, survivorship bias, sector heterogeneity; need for careful cleaning and robustness checks;</li>
+              <li>Scope: focus on NASDAQ; extensions can add other exchanges and macro controls;</li>
+              <li>Deliverables: dataset description, code on GitHub, interactive HTML report with all charts.</li>
+            </ul>
+          </td>
+        </tr>
+      </table>
+    </main>
+
+    <footer>
+      Research pitch · Dividend change forecasting · Pavel Popov · 2026
+    </footer>
+  </div>
+</body>
+</html>
