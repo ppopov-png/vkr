@@ -276,9 +276,12 @@
         <tr>
           <th>(E) Idea</th>
           <td>
-            Build a quarterly panel for NASDAQ firms, label three classes of dividend change (–1 cut, 0 unchanged, +1 increase) and compare two model specifications:
-            (i) concurrent changes in fundamentals and market variables; (ii) lagged changes (previous quarter).
-            Train ML models (logit, Random Forest, CatBoost, XGBoost) and evaluate out-of-sample ROC / 3D ROC to see whether lagged dynamics carry more predictive power.
+            Build a quarterly panel for listed dividend-paying companies and label three classes of dividend change
+            (–1 cut, 0 unchanged, +1 increase). Compare two model specifications:
+            (i) concurrent quarter-on-quarter changes in fundamentals and market variables;
+            (ii) lagged quarter-on-quarter changes (previous period), used as early signals.
+            Train ML models (logit, Random Forest, CatBoost, XGBoost) and evaluate out-of-sample ROC / 3D ROC to see whether
+            lagged dynamics carry more predictive power than purely contemporaneous changes.
           </td>
         </tr>
         <tr>
@@ -308,10 +311,22 @@
           <th>(H) What’s new?</th>
           <td>
             <ul>
-              <li>Focus on the <strong>direction</strong> of dividend changes (cut / unchanged / increase), not on the level only;</li>
-              <li>Systematic comparison of concurrent vs lagged changes in fundamentals as predictors;</li>
-              <li>Use of modern ML (boosting) and 3D ROC visualisation in a dividend-policy setting;</li>
-              <li>Explicit economic and managerial interpretation of feature importance (debt, liquidity, ESG, etc.).</li>
+              <li>
+                A modular ML framework that first focuses on <strong>direction</strong> of dividend changes (cut / unchanged / increase)
+                and is designed to be extended to <strong>dividend amount</strong> and payout ratios in further work.
+              </li>
+              <li>
+                Systematic comparison of two economic specifications:
+                concurrent quarter-on-quarter changes vs lagged quarter-on-quarter changes in fundamentals, market factors and ESG.
+              </li>
+              <li>
+                Use of modern ML models (gradient boosting, CatBoost / XGBoost) and <strong>multi-class ROC + 3D ROC surfaces</strong>
+                to visualise model quality for all three classes at once.
+              </li>
+              <li>
+                Detailed feature-level interpretation (drop-one / permutation importance) for dividends, leverage, liquidity,
+                profitability, market risk and ESG, linked directly to economic and managerial narratives.
+              </li>
             </ul>
           </td>
         </tr>
@@ -330,10 +345,22 @@
           <th>(J) Contribution</th>
           <td>
             <ul>
-              <li>An open, clearly documented ML pipeline for dividend change prediction;</li>
-              <li>Evidence that lagged changes in fundamentals explain dividend actions better than concurrent changes (higher macro AUC);</li>
-              <li>Feature-level insights on the role of past dividends, leverage, liquidity, profitability and ESG;</li>
-              <li>Visual, web-based report (ROC and 3D ROC) that can be reused for teaching and further research.</li>
+              <li>
+                A transparent, reproducible ML pipeline for forecasting the <strong>direction</strong> of dividend changes based on
+                standard financial, market and ESG data for listed dividend-paying companies.
+              </li>
+              <li>
+                Empirical evidence on how much <strong>lagged quarter-on-quarter changes</strong> in fundamentals and market factors
+                improve prediction quality compared to purely concurrent changes (higher macro AUC and lower classification error).
+              </li>
+              <li>
+                Feature-level insights on the roles of past dividends, leverage, liquidity, profitability, market risk and ESG
+                in driving dividend cuts vs increases, illustrated through importance measures and partial interpretations.
+              </li>
+              <li>
+                An interactive, web-based report (ROC curves, 3D ROC surfaces, diagnostics) that can be reused and extended for
+                future modules of the project, including forecasts of <strong>dividend levels and payout ratios</strong>.
+              </li>
             </ul>
           </td>
         </tr>
