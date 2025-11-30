@@ -611,118 +611,132 @@
     function setupLanguageToggle() {
       const langToggleBtn = document.getElementById('lang-toggle');
       const translations = {
-        en: {
-          title: "Dividend Forecasting for NASDAQ Companies",
-          ".hero .badge": "Capstone on dividend forecasting",
-          ".hero h1": "Predicting dividend policy changes for NASDAQ companies with machine learning",
-          ".hero .subtitle": "Multiclass ROC analysis with engineered financial, market, and ESG signals.",
-          ".meta-item:nth-child(1)": "<strong>Author:</strong><br>Pavel Popov",
-          ".meta-item:nth-child(2)": "<strong>Program:</strong><br>International Bachelor in Economics and Business",
-          ".meta-item:nth-child(3)": "<strong>Year:</strong><br>2026",
-          ".meta-item:nth-child(4)": "<strong>Academic advisor:</strong><br>Kuzmina Elena Valeryevna",
-          "#vvedenie h2": "Introduction",
-          "#vvedenie h3:nth-of-type(1)": "Relevance",
-          "#vvedenie p:nth-of-type(1)": "Dividend policy remains a core signal of company stability for minority shareholders. Abrupt dividend cuts are punished by the market, while stable and predictable payouts support fair valuation.",
-          "#vvedenie p:nth-of-type(2)": "Recent macro volatility and sector specifics make payout decisions depend on earnings, sales, cash conversion, leverage and market sentiment. We analyse how profitability, leverage, liquidity, ESG profile and market factors map to dividend actions.",
-          "#vvedenie h3:nth-of-type(2)": "Goal",
-          "#vvedenie p:nth-of-type(3)": "Build and validate an ML pipeline that predicts the probability of dividend policy changes for NASDAQ companies.",
-          "#vvedenie h3:nth-of-type(3)": "Tasks",
-          "#vvedenie ul li:nth-child(1)": "Collect and clean the dividend history dataset.",
-          "#vvedenie ul li:nth-child(2)": "Label dividend changes (increase / unchanged / cut) from raw payouts.",
-          "#vvedenie ul li:nth-child(3)": "Train baseline and advanced ML models.",
-          "#vvedenie ul li:nth-child(4)": "Compare model performance using ROC-AUC.",
-          "#vvedenie ul li:nth-child(5)": "Visualise ROC and 3D ROC surfaces.",
-          "#vvedenie ul li:nth-child(6)": "Interpret feature importance and business meaning.",
-          "#vvedenie ul li:nth-child(7)": "Translate results into economic and managerial implications.",
-          "#vvedenie h3:nth-of-type(4)": "Hypothesis",
-          "#vvedenie p:nth-of-type(4)": "Hypothesis: a set of financial and market factors allows multi-class classification of dividend changes above random baseline; boosting should outperform linear/logit benchmarks.",
-          "#vvedenie h3:nth-of-type(5)": "Object and subject",
-          "#vvedenie p:nth-of-type(5)": "Object: dividend payouts; subject: models estimating the probability of dividend changes for NASDAQ issuers.",
-          "#obzor h2": "Literature review",
-          "#obzor h3:nth-of-type(1)": "Classical dividend theories",
-          "#obzor p:nth-of-type(1)": "(bird-in-hand, signaling, agency costs, free cash-flow hypothesis)",
-          "#obzor h3:nth-of-type(2)": "ML and dividend forecasting",
-          "#obzor p:nth-of-type(2)": "Prior work links dividends to profitability, leverage, governance and market factors, but few studies test modern ML on multi-class dividend change prediction.",
-          "#metod h2": "Methodology and data",
-          "#metod h3:nth-of-type(1)": "Data sources:",
-          "#metod ul li:nth-child(1)": "NASDAQ Dividend History",
-          "#metod ul li:nth-child(2)": "Financial statements: balance sheet, income statement, cash flow statement, statement of changes in equity",
-          "#metod ul li:nth-child(3)": "Market data: prices, returns and volatility, S&P 500 and UST10Y benchmarks",
-          "#metod ul li:nth-child(4)": "ESG scores",
-          "#metod h3:nth-of-type(2)": "Feature groups",
-          "#metod h4:nth-of-type(1)": "Scale and valuation",
-          "#metod h4:nth-of-type(2)": "Liquidity and cash buffers",
-          "#metod h4:nth-of-type(3)": "Leverage structure",
-          "#metod h4:nth-of-type(4)": "Market performance",
-          "#metod h4:nth-of-type(5)": "Profitability and growth",
-          "#metod h4:nth-of-type(6)": "ESG metrics",
-          "#metod h4:nth-of-type(7)": "Dividends",
-          "#specs h2": "Model specifications (A and B)",
-          "#specs h3:nth-of-type(1)": "Specification A - concurrent changes DeltaX(t)",
-          "#specs p:nth-of-type(1)": "Differences are set as <span class=\"math\">\\( \\Delta X(t) = X(t) - X(t-1) \\)</span>. Uses current-period dynamics with lags.",
-          "#specs .infobox:nth-of-type(1) div": "<strong>Results (A):</strong><br>AUC class 0: 0.692<br>AUC class 1: 0.653<br>AUC class 2: 0.645<br>Macro AUC ~ 0.66",
-          "#specs .infobox:nth-of-type(2) div": "<strong>Comment:</strong><br>Signals are weaker; separation between classes is limited.",
-          "#specs h3:nth-of-type(2)": "Specification B - lagged changes DeltaX(t-1)",
-          "#specs p:nth-of-type(2)": "Differences are set as <span class=\"math\">\\( \\Delta X(t-1) = X(t-1) - X(t-2) \\)</span>. Prior-period dynamics better anticipate upcoming payouts.",
-          "#specs .infobox:nth-of-type(3) div": "<strong>Results (B):</strong><br>AUC class 0: 0.872<br>AUC class 1: 0.727<br>AUC class 2: 0.694<br>Macro AUC ~ 0.76",
-          "#specs .infobox:nth-of-type(4) div": "<strong>Comment:</strong><br>Clearer separation; the lag specification improves class discrimination.",
-          "#specs table thead tr th:nth-child(1)": "Metric",
-          "#specs table thead tr th:nth-child(2)": "Model A (DeltaX(t))",
-          "#specs table thead tr th:nth-child(3)": "Model B (DeltaX(t-1))",
-          "#specs .infobox:nth-of-type(5) div": "<strong>Finding:</strong> The lagged-spec model outperforms the concurrent one.",
-          "#models h2:nth-of-type(1)": "ML models",
-          "#models p:nth-of-type(1)": "Models evaluated:",
-          "#models ul li:nth-child(1)": "Logistic Regression",
-          "#models ul li:nth-child(2)": "Random Forest",
-          "#models ul li:nth-child(3)": "CatBoost",
-          "#models ul li:nth-child(4)": "XGBoost (leader)",
-          "#models table thead tr th:nth-child(1)": "Model",
-          "#models h2:nth-of-type(2)": "ROC curves",
-          "#models blockquote": "Class 0 (unchanged payouts) is hardest; the model separates cuts and increases better.",
-          "#roc3d h2": "3D ROC surface",
-          "#roc3d .infobox.info-blue div": "<strong>Interpretation:</strong> The surface shows class separation; volume near 0 highlights areas where the model confuses classes.",
-          "#importance h2": "Feature importance",
-          "#importance p:nth-of-type(1)": "Ranking by gain: how much each feature improves split purity in the model.",
-          "#importance ol li:nth-child(1)": "<strong>Total dividends lagged (total_dividends_lag1)</strong> - main predictor of future payouts: strong persistence.",
-          "#importance ol li:nth-child(2)": "<strong>Leverage ratios (debt_to_assets_lag1, debt_to_equity_lag1)</strong> - higher leverage reduces room for dividend growth.",
-          "#importance ol li:nth-child(3)": "<strong>Liquidity (cash_to_assets, current_ratio)</strong> - ample cash supports payouts; weak liquidity depresses them.",
-          "#importance ol li:nth-child(4)": "<strong>Profit and cash from core business (net_income_lag1)</strong> - earnings momentum feeds future dividends.",
-          "#importance ol li:nth-child(5)": "<strong>Market performance and volatility</strong> - reflect market confidence and dividend stability.",
-          "#importance ol li:nth-child(6)": "<strong>ESG</strong> - governance score contributes marginally to stability.",
-          "#economics h2": "Economic interpretation",
-          "#economics p:nth-of-type(1)": "<strong>Link with DCF/FCFE.</strong> Dividend forecasts align with equity cash flows: FCFE shapes sustainable payouts; growth expectations cap distribution potential.",
-          "#economics p:nth-of-type(2)": "<strong>Dividend momentum.</strong> Firms with recent payout growth tend to keep the trend; cuts often follow earnings shocks.",
-          "#economics p:nth-of-type(3)": "<strong>Cost of capital.</strong> Higher risk and poorer access to capital reduce willingness to distribute; robust cash-flow visibility supports payouts.",
-          "#economics p:nth-of-type(4)": "<strong>Industry differences.</strong> Capital-intensive sectors keep more cash for capex, limiting dividends.",
-          "#economics p:nth-of-type(5)": "<strong>Interest-rate backdrop.</strong> In high-rate regimes investors demand higher yield; muted payout growth can pressure valuation.",
-          "#management h2": "Managerial implications",
-          "#management p:nth-of-type(1)": "<strong>Manage payout ratio.</strong> Balance shareholder expectations with reinvestment needs; avoid aggressive payout that endangers resilience.",
-          "#management p:nth-of-type(2)": "<strong>Smooth dividends and communication.</strong> Gradual, predictable changes with clear guidance are valued more than volatile payouts.",
-          "#management p:nth-of-type(3)": "<strong>Capital structure.</strong> Keep leverage at levels that preserve dividend headroom and capex flexibility.",
-          "#management p:nth-of-type(4)": "<strong>Market guidance.</strong> Transparent IR communications and guidance reduce uncertainty and support valuation around ex-div dates.",
-          "#management p:nth-of-type(5)": "<strong>ESG and governance.</strong> Strong governance and ESG policies underpin payout stability and investor trust.",
-          "#conclusion h2": "Conclusions",
-          "#conclusion ul li:nth-child(1)": "Lagged changes (model B) improve macro AUC to ≈0.76 vs ≈0.66 for model A; lag dynamics better capture dividend behaviour.",
-          "#conclusion ul li:nth-child(2)": "XGBoost delivers the best MAE (0.256) while keeping robust ROC separation across classes.",
-          "#conclusion ul li:nth-child(3)": "Key drivers: past dividends, leverage ratios, liquidity, profitability momentum; governance adds a minor stabilising effect.",
-          "#conclusion ul li:nth-child(4)": "Economic angle: consistent with DCF/FCFE logic; dividend growth limited by leverage, reinvestment needs and macro rates.",
-          "#conclusion ul li:nth-child(5)": "Further work: more granular industry effects, richer macro controls, and out-of-time validation.",
-          "footer": "Thesis — dividend forecasting for NASDAQ companies, Higher School of Economics, 2026",
-          ".nav h3": "Contents",
-          ".nav a[href=\"#top\"]": "Back to top",
-          ".nav a[href=\"#vvedenie\"]": "Introduction",
-          ".nav a[href=\"#obzor\"]": "Literature review",
-          ".nav a[href=\"#metod\"]": "Methodology and data",
-          ".nav a[href=\"#specs\"]": "Specifications",
-          ".nav a[href=\"#models\"]": "ML models",
-          ".nav a[href=\"#roc\"]": "ROC curves",
-          ".nav a[href=\"#roc3d\"]": "3D ROC",
-          ".nav a[href=\"#importance\"]": "Feature importance",
-          ".nav a[href=\"#economics\"]": "Economic interpretation",
-          ".nav a[href=\"#management\"]": "Managerial implications",
-          ".nav a[href=\"#conclusion\"]": "Conclusions"
-        }
-      };
+		  en: {
+		    /* HERO */
+		    "title": "Forecasting the direction of dividend changes — Thesis Project",
+		    ".hero .badge": "Final Qualification Work",
+		    ".hero h1": "Forecasting the direction of dividend changes of public companies using machine learning",
+		    ".hero .subtitle": "A modern analytical report with ROC/3D ROC visualisation, model comparison and economic conclusions.",
+		    ".meta-item:nth-child(1)": "<strong>Author:</strong><br> Pavel Popov",
+		    ".meta-item:nth-child(2)": "<strong>Program:</strong><br> International Bachelor in Economics and Business",
+		    ".meta-item:nth-child(3)": "<strong>Year:</strong><br> 2026",
+		    ".meta-item:nth-child(4)": "<strong>Scientific advisor:</strong><br> Kuzmina Elena Valeryevna",
+		
+		    /* NAVIGATION */
+		    ".nav a[href='#top']": "Title section",
+		    ".nav a[href='#vvedenie']": "Introduction",
+		    ".nav a[href='#obzor']": "Literature review",
+		    ".nav a[href='#metod']": "Methodology and data",
+		    ".nav a[href='#specs']": "Specifications",
+		    ".nav a[href='#models']": "ML models",
+		    ".nav a[href='#roc']": "ROC analysis",
+		    ".nav a[href='#roc3d']": "3D ROC",
+		    ".nav a[href='#importance']": "Feature importance",
+		    ".nav a[href='#economics']": "Economic application",
+		    ".nav a[href='#management']": "Managerial application",
+		    ".nav a[href='#conclusion']": "Conclusion",
+		
+		    /* INTRODUCTION */
+		    "#vvedenie h2": "Introduction",
+		    "#vvedenie p[data-i18n='vved-1']": 
+		      "Dividend policy remains one of the central topics of corporate finance, closely connected with company value, cash flow stability and investor expectations.",
+		    "#vvedenie p[data-i18n='vved-2']":
+		      "Dividend changes carry important informational content: increases may reflect confidence in stable cash flows, while cuts often signal deterioration in profitability or negative expectations.",
+		    "#vvedenie p[data-i18n='vved-3']":
+		      "In this work we study whether the direction of next-quarter dividend changes can be predicted using machine learning models based on financial, market and ESG indicators.",
+		    "#vvedenie p[data-i18n='vved-4']":
+		      "The goal of the research is to build and evaluate models that classify dividend direction into three categories: increase, no change, decrease.",
+		
+		    /* LITERATURE REVIEW */
+		    "#obzor h2": "Literature review",
+		    "#obzor p[data-i18n='obzor-1']":
+		      "Classical theories view dividends as a tool of signalling, lifecycle financing and reducing information asymmetry.",
+		    "#obzor p[data-i18n='obzor-2']":
+		      "The Lintner model emphasised smoothing of dividends and their dependence on long-term earnings.",
+		    "#obzor p[data-i18n='obzor-3']":
+		      "A large number of empirical works analyse how dividend changes relate to future profitability, risk and market reaction.",
+		    "#obzor p[data-i18n='obzor-4']":
+		      "More recent research explores machine learning techniques for predicting payout levels, cash flows and financial decisions.",
+		
+		    /* METHODOLOGY AND DATA */
+		    "#metod h2": "Methodology and data",
+		    "#metod p[data-i18n='metod-1']":
+		      "A quarterly panel dataset was created containing financial statements, market indicators, ESG scores and dividend history for public companies.",
+		    "#metod p[data-i18n='metod-2']":
+		      "For each company and each quarter all features were aligned by period and cleaned for outliers and missing values.",
+		    "#metod p[data-i18n='metod-3']":
+		      "We consider two types of predictors: quarterly changes of variables (ΔX) and lagged quarterly changes (ΔX(t−1)).",
+		    "#metod p[data-i18n='metod-4']":
+		      "The target variable is the direction of next-quarter dividend change: +1 (increase), 0 (no change), −1 (decrease).",
+		
+		    /* SPECIFICATIONS */
+		    "#specs h2": "Specifications of the models",
+		    "#specs h3[data-i18n='spec-a']": "Specification A: current quarterly changes (ΔX)",
+		    "#specs p[data-i18n='spec-a-desc']":
+		      "Uses the current quarter-on-quarter changes in financial, market and ESG indicators to predict the direction of dividend changes.",
+		    "#specs h3[data-i18n='spec-b']": "Specification B: lagged quarterly changes (ΔX(t−1))",
+		    "#specs p[data-i18n='spec-b-desc']":
+		      "Uses lagged quarter-on-quarter changes as earlier signals reflecting delayed managerial responses in dividend policy.",
+		
+		    /* MODELS */
+		    "#models h2": "Machine learning models",
+		    "#models p[data-i18n='models-1']":
+		      "We evaluate several widely used models: Logistic Regression, Random Forest, CatBoost and XGBoost.",
+		    "#models p[data-i18n='models-2']":
+		      "Models are compared by ROC/AUC metrics, macro and weighted AUC, as well as classification error and MAE.",
+		    "#models p[data-i18n='models-3']":
+		      "XGBoost demonstrates the best overall quality among the tested models.",
+		
+		    /* ROC ANALYSIS */
+		    "#roc h2": "ROC analysis",
+		    "#roc p[data-i18n='roc-1']":
+		      "One-vs-rest ROC curves are constructed for all three classes of dividend direction.",
+		    "#roc p[data-i18n='roc-2']":
+		      "The area under the curve (AUC) allows assessing how confidently the model separates each class from the others.",
+		
+		    /* 3D ROC */
+		    "#roc3d h2": "3D ROC surface",
+		    "#roc3d p[data-i18n='roc3d-1']":
+		      "The 3D ROC surface shows the joint behaviour of true positive rates across all three classes.",
+		    "#roc3d p[data-i18n='roc3d-2']":
+		      "Higher ROC surface volume indicates more stable multi-class discrimination.",
+		
+		    /* FEATURE IMPORTANCE */
+		    "#importance h2": "Feature importance",
+		    "#importance p[data-i18n='imp-1']":
+		      "Feature importance was estimated using permutation importance and a drop-one approach.",
+		    "#importance p[data-i18n='imp-2']":
+		      "The most influential predictors include past dividends, company size, leverage, liquidity, profitability, risk indicators and ESG components.",
+		    "#importance p[data-i18n='imp-3']":
+		      "These factors align with classical theories on dividend stability, financial constraints and signalling.",
+		
+		    /* ECONOMIC APPLICATION */
+		    "#economics h2": "Economic application",
+		    "#economics p[data-i18n='econ-1']":
+		      "Forecasting dividend change direction helps investors prioritise stocks that may cut or increase dividends in the next period.",
+		    "#economics p[data-i18n='econ-2']":
+		      "The model can assist in portfolio construction, stress testing and evaluating payout sustainability under different economic scenarios.",
+		
+		    /* MANAGERIAL APPLICATION */
+		    "#management h2": "Managerial application",
+		    "#management p[data-i18n='man-1']":
+		      "Managers can use model results to understand how financial decisions affect the stability of dividend payments.",
+		    "#management p[data-i18n='man-2']":
+		      "Feature importance reveals which aspects of capital structure, liquidity or profitability are critical for maintaining stable payouts.",
+		
+		    /* CONCLUSION */
+		    "#conclusion h2": "Conclusion",
+		    "#conclusion p[data-i18n='concl-1']":
+		      "Machine learning models demonstrate meaningful predictive power for the direction of dividend changes.",
+		    "#conclusion p[data-i18n='concl-2']":
+		      "Lagged quarterly changes provide a stronger and more stable signal compared to current-period changes.",
+		    "#conclusion p[data-i18n='concl-3']":
+		      "XGBoost shows the best balance of ROC/AUC quality and error minimisation.",
+		    "#conclusion p[data-i18n='concl-4']":
+		      "The approach can be extended to forecasting dividend amounts and payout ratios in further research."
+		  }
+		};
+
       const ruTexts = {};
       Object.keys(translations.en).forEach(selector => {
         const target = selector === 'title' ? document.querySelector(selector) : document.querySelector(selector);
