@@ -609,174 +609,201 @@
       });
     });
     function setupLanguageToggle() {
-      const langToggleBtn = document.getElementById('lang-toggle');
-      const translations = {
-		  en: {
-		    /* HERO */
-		    "title": "Forecasting the direction of dividend changes — Thesis Project",
-		    ".hero .badge": "Final Qualification Work",
-		    ".hero h1": "Forecasting the direction of dividend changes of public companies using machine learning",
-		    ".hero .subtitle": "A modern analytical report with ROC/3D ROC visualisation, model comparison and economic conclusions.",
-		    ".meta-item:nth-child(1)": "<strong>Author:</strong><br> Pavel Popov",
-		    ".meta-item:nth-child(2)": "<strong>Program:</strong><br> International Bachelor in Economics and Business",
-		    ".meta-item:nth-child(3)": "<strong>Year:</strong><br> 2026",
-		    ".meta-item:nth-child(4)": "<strong>Scientific advisor:</strong><br> Kuzmina Elena Valeryevna",
-		
-		    /* NAVIGATION */
-		    ".nav a[href='#top']": "Title section",
-		    ".nav a[href='#vvedenie']": "Introduction",
-		    ".nav a[href='#obzor']": "Literature review",
-		    ".nav a[href='#metod']": "Methodology and data",
-		    ".nav a[href='#specs']": "Specifications",
-		    ".nav a[href='#models']": "ML models",
-		    ".nav a[href='#roc']": "ROC analysis",
-		    ".nav a[href='#roc3d']": "3D ROC",
-		    ".nav a[href='#importance']": "Feature importance",
-		    ".nav a[href='#economics']": "Economic application",
-		    ".nav a[href='#management']": "Managerial application",
-		    ".nav a[href='#conclusion']": "Conclusion",
-		
-		    /* INTRODUCTION */
-		    "#vvedenie h2": "Introduction",
-		    "#vvedenie p[data-i18n='vved-1']": 
-		      "Dividend policy remains one of the central topics of corporate finance, closely connected with company value, cash flow stability and investor expectations.",
-		    "#vvedenie p[data-i18n='vved-2']":
-		      "Dividend changes carry important informational content: increases may reflect confidence in stable cash flows, while cuts often signal deterioration in profitability or negative expectations.",
-		    "#vvedenie p[data-i18n='vved-3']":
-		      "In this work we study whether the direction of next-quarter dividend changes can be predicted using machine learning models based on financial, market and ESG indicators.",
-		    "#vvedenie p[data-i18n='vved-4']":
-		      "The goal of the research is to build and evaluate models that classify dividend direction into three categories: increase, no change, decrease.",
-		
-		    /* LITERATURE REVIEW */
-		    "#obzor h2": "Literature review",
-		    "#obzor p[data-i18n='obzor-1']":
-		      "Classical theories view dividends as a tool of signalling, lifecycle financing and reducing information asymmetry.",
-		    "#obzor p[data-i18n='obzor-2']":
-		      "The Lintner model emphasised smoothing of dividends and their dependence on long-term earnings.",
-		    "#obzor p[data-i18n='obzor-3']":
-		      "A large number of empirical works analyse how dividend changes relate to future profitability, risk and market reaction.",
-		    "#obzor p[data-i18n='obzor-4']":
-		      "More recent research explores machine learning techniques for predicting payout levels, cash flows and financial decisions.",
-		
-		    /* METHODOLOGY AND DATA */
-		    "#metod h2": "Methodology and data",
-		    "#metod p[data-i18n='metod-1']":
-		      "A quarterly panel dataset was created containing financial statements, market indicators, ESG scores and dividend history for public companies.",
-		    "#metod p[data-i18n='metod-2']":
-		      "For each company and each quarter all features were aligned by period and cleaned for outliers and missing values.",
-		    "#metod p[data-i18n='metod-3']":
-		      "We consider two types of predictors: quarterly changes of variables (ΔX) and lagged quarterly changes (ΔX(t−1)).",
-		    "#metod p[data-i18n='metod-4']":
-		      "The target variable is the direction of next-quarter dividend change: +1 (increase), 0 (no change), −1 (decrease).",
-		
-		    /* SPECIFICATIONS */
-		    "#specs h2": "Specifications of the models",
-		    "#specs h3[data-i18n='spec-a']": "Specification A: current quarterly changes (ΔX)",
-		    "#specs p[data-i18n='spec-a-desc']":
-		      "Uses the current quarter-on-quarter changes in financial, market and ESG indicators to predict the direction of dividend changes.",
-		    "#specs h3[data-i18n='spec-b']": "Specification B: lagged quarterly changes (ΔX(t−1))",
-		    "#specs p[data-i18n='spec-b-desc']":
-		      "Uses lagged quarter-on-quarter changes as earlier signals reflecting delayed managerial responses in dividend policy.",
-		
-		    /* MODELS */
-		    "#models h2": "Machine learning models",
-		    "#models p[data-i18n='models-1']":
-		      "We evaluate several widely used models: Logistic Regression, Random Forest, CatBoost and XGBoost.",
-		    "#models p[data-i18n='models-2']":
-		      "Models are compared by ROC/AUC metrics, macro and weighted AUC, as well as classification error and MAE.",
-		    "#models p[data-i18n='models-3']":
-		      "XGBoost demonstrates the best overall quality among the tested models.",
-		
-		    /* ROC ANALYSIS */
-		    "#roc h2": "ROC analysis",
-		    "#roc p[data-i18n='roc-1']":
-		      "One-vs-rest ROC curves are constructed for all three classes of dividend direction.",
-		    "#roc p[data-i18n='roc-2']":
-		      "The area under the curve (AUC) allows assessing how confidently the model separates each class from the others.",
-		
-		    /* 3D ROC */
-		    "#roc3d h2": "3D ROC surface",
-		    "#roc3d p[data-i18n='roc3d-1']":
-		      "The 3D ROC surface shows the joint behaviour of true positive rates across all three classes.",
-		    "#roc3d p[data-i18n='roc3d-2']":
-		      "Higher ROC surface volume indicates more stable multi-class discrimination.",
-		
-		    /* FEATURE IMPORTANCE */
-		    "#importance h2": "Feature importance",
-		    "#importance p[data-i18n='imp-1']":
-		      "Feature importance was estimated using permutation importance and a drop-one approach.",
-		    "#importance p[data-i18n='imp-2']":
-		      "The most influential predictors include past dividends, company size, leverage, liquidity, profitability, risk indicators and ESG components.",
-		    "#importance p[data-i18n='imp-3']":
-		      "These factors align with classical theories on dividend stability, financial constraints and signalling.",
-		
-		    /* ECONOMIC APPLICATION */
-		    "#economics h2": "Economic application",
-		    "#economics p[data-i18n='econ-1']":
-		      "Forecasting dividend change direction helps investors prioritise stocks that may cut or increase dividends in the next period.",
-		    "#economics p[data-i18n='econ-2']":
-		      "The model can assist in portfolio construction, stress testing and evaluating payout sustainability under different economic scenarios.",
-		
-		    /* MANAGERIAL APPLICATION */
-		    "#management h2": "Managerial application",
-		    "#management p[data-i18n='man-1']":
-		      "Managers can use model results to understand how financial decisions affect the stability of dividend payments.",
-		    "#management p[data-i18n='man-2']":
-		      "Feature importance reveals which aspects of capital structure, liquidity or profitability are critical for maintaining stable payouts.",
-		
-		    /* CONCLUSION */
-		    "#conclusion h2": "Conclusion",
-		    "#conclusion p[data-i18n='concl-1']":
-		      "Machine learning models demonstrate meaningful predictive power for the direction of dividend changes.",
-		    "#conclusion p[data-i18n='concl-2']":
-		      "Lagged quarterly changes provide a stronger and more stable signal compared to current-period changes.",
-		    "#conclusion p[data-i18n='concl-3']":
-		      "XGBoost shows the best balance of ROC/AUC quality and error minimisation.",
-		    "#conclusion p[data-i18n='concl-4']":
-		      "The approach can be extended to forecasting dividend amounts and payout ratios in further research."
-		  }
-		};
+	  const langToggleBtn = document.getElementById('lang-toggle');
+	  const translations = {
+	    en: {
+	      // --- HERO ---
+	      title: "Forecasting dividend changes — Thesis",
+	      ".hero .badge": "Final qualification work",
+	      ".hero h1": "Forecasting the direction of dividend changes of public companies using machine learning",
+	      ".hero .subtitle": "A modern analytical report with ROC / 3D ROC visualisation, specification comparison and economic conclusions.",
+	      ".meta-item:nth-child(1)": "<strong>Author:</strong><br> Pavel Popov",
+	      ".meta-item:nth-child(2)": "<strong>Program:</strong><br> International Bachelor in Economics and Business",
+	      ".meta-item:nth-child(3)": "<strong>Year:</strong><br> 2026",
+	      ".meta-item:nth-child(4)": "<strong>Scientific advisor:</strong><br> Kuzmina Elena Valeryevna",
+	
+	      // --- ВВЕДЕНИЕ ---
+	      "#vvedenie h2": "Introduction",
+	      "#vvedenie h3:nth-of-type(1)": "Relevance",
+	      "#vvedenie p:nth-of-type(1)": "Dividends are one of the key sources of income for shareholders and an important indicator of a company’s financial stability. Increases or decreases in dividends affect company value and signal investors about prospects and management strategy. The ability to forecast the direction of dividend changes (increase, unchanged, decrease) gives a significant advantage to analysts, investors and corporate managers.",
+	      "#vvedenie p:nth-of-type(2)": "Markets have become more complex, and classical linear methods (for example, the Lintner model) lose effectiveness because they do not capture nonlinear patterns in data. Machine learning methods allow us to identify complex relationships between financial, market and ESG factors and future dividend decisions.",
+	      "#vvedenie h3:nth-of-type(2)": "Motivation",
+	      "#vvedenie p:nth-of-type(3)": "There are almost no academic works dedicated to predicting the direction of dividend changes. Most research analyses the level of dividends, not their future changes. Yet the direction (increase/decrease) causes a much stronger market reaction.",
+	      "#vvedenie h3:nth-of-type(3)": "Goal",
+	      "#vvedenie p:nth-of-type(4)": "To develop and evaluate an ML model that classifies dividend changes for the next quarter.",
+	      "#vvedenie h3:nth-of-type(4)": "Tasks",
+	      "#vvedenie ul li:nth-child(1)": "collect a quarterly panel dataset;",
+	      "#vvedenie ul li:nth-child(2)": "build two model specifications (current changes and lagged changes);",
+	      "#vvedenie ul li:nth-child(3)": "train several ML algorithms;",
+	      "#vvedenie ul li:nth-child(4)": "compare quality using ROC-AUC;",
+	      "#vvedenie ul li:nth-child(5)": "visualise ROC and 3D ROC;",
+	      "#vvedenie ul li:nth-child(6)": "interpret significant features;",
+	      "#vvedenie ul li:nth-child(7)": "form economic and managerial conclusions.",
+	      "#vvedenie h3:nth-of-type(5)": "Object and subject of research",
+	      "#vvedenie p:nth-of-type(5)": "Object – public companies of the USA; subject – factors influencing the direction of dividend changes.",
+	
+	      // --- ОБЗОР ЛИТЕРАТУРЫ ---
+	      "#obzor h2": "Literature review",
+	      "#obzor h3:nth-of-type(1)": "Dividend policy theories",
+	      "#obzor p:nth-of-type(1)": "(Lintner, signalling theory, lifecycle theory, free cash-flow hypothesis)",
+	      "#obzor h3:nth-of-type(2)": "ML in corporate finance",
+	      "#obzor p:nth-of-type(2)": "Machine learning is successfully applied to return prediction, bankruptcy, credit risk, but not to forecasting dividend changes.",
+	
+	      // --- МЕТОДОЛОГИЯ И ДАННЫЕ ---
+	      "#metod h2": "Methodology and data",
+	      "#metod h3:nth-of-type(1)": "Data sources",
+	      "#metod ul li:nth-child(1)": "Dividend history (quarterly data)",
+	      "#metod ul li:nth-child(2)": "Financial statements: assets, equity, debt, profit, revenue",
+	      "#metod ul li:nth-child(3)": "Market data: return, volatility, betas",
+	      "#metod ul li:nth-child(4)": "ESG data",
+	      "#metod h3:nth-of-type(2)": "Features",
+	      "#metod h4:nth-of-type(1)": "Financial levels",
+	      "#metod p:nth-of-type(1)": "total_assets, total_equity, total_debt, market_cap, enterprise_value, log_assets, log_market_cap",
+	      "#metod h4:nth-of-type(2)": "Liquidity and cash",
+	      "#metod p:nth-of-type(2)": "cash_and_equivalents, current_ratio, cash_to_assets",
+	      "#metod h4:nth-of-type(3)": "Leverage",
+	      "#metod p:nth-of-type(3)": "debt_to_assets, debt_to_equity, net_debt",
+	      "#metod h4:nth-of-type(4)": "Market",
+	      "#metod p:nth-of-type(4)": "stock_return_q, stock_vol_q, beta_to_sp500, beta_to_ust10y",
+	      "#metod h4:nth-of-type(5)": "Profit and flows",
+	      "#metod p:nth-of-type(5)": "net_income, sales, asset_growth",
+	      "#metod h4:nth-of-type(6)": "ESG factors",
+	      "#metod p:nth-of-type(6)": "ESGScore, environmentalScore, socialScore, governanceScore",
+	      "#metod h4:nth-of-type(7)": "Dividends",
+	      "#metod p:nth-of-type(7)": "DPS, total_dividends",
+	
+	      // --- СПЕЦИФИКАЦИИ ---
+	      "#specs h2": "Model specifications (A and B)",
+	      "#specs h3:nth-of-type(1)": "Specification A — current changes (deltas)",
+	      "#specs p:nth-of-type(1)": "We use the formula <span class=\"math\">\\( \\Delta X(t) = X(t) - X(t-1) \\)</span>. These are fresh changes reflecting short-term shifts in the business.",
+	      "#specs .infobox.info-orange div": "<strong>Results (A):</strong><br>AUC class 0: 0.692<br>AUC class 1: 0.653<br>AUC class 2: 0.645<br>macro AUC ≈ 0.66",
+	      "#specs .infobox.info-blue div": "<strong>Interpretation:</strong><br>Changes are too noisy → weak signal.",
+	      "#specs h3:nth-of-type(2)": "Specification B — lagged changes",
+	      "#specs p:nth-of-type(2)": "We use the formula <span class=\"math\">\\( \\Delta X(t-1) = X(t-1) - X(t-2) \\)</span>. Logic: changes become predictive only after one quarter.",
+	      "#specs .infobox.info-green div": "<strong>Results (B):</strong><br>AUC class 0: 0.872<br>AUC class 1: 0.727<br>AUC class 2: 0.694<br>macro AUC ≈ 0.76",
+	      "#specs .infobox.info-blue:nth-of-type(2) div": "<strong>Interpretation:</strong><br>Stronger and cleaner signal; lagged changes reflect the inertia of dividend policy.",
+	      "#specs table thead tr th:nth-child(1)": "Metric",
+	      "#specs table thead tr th:nth-child(2)": "Model A (ΔX(t))",
+	      "#specs table thead tr th:nth-child(3)": "Model B (ΔX(t–1))",
+	      "#specs tbody tr:nth-child(1) td:nth-child(1)": "Class 0 AUC",
+	      "#specs tbody tr:nth-child(2) td:nth-child(1)": "Class 1 AUC",
+	      "#specs tbody tr:nth-child(3) td:nth-child(1)": "Class 2 AUC",
+	      "#specs tbody tr:nth-child(4) td:nth-child(1)": "Macro AUC",
+	      "#specs .infobox.info-green:nth-of-type(2) div": "<strong>Conclusion:</strong> lagged changes are much more informative.",
+	
+	      // --- МОДЕЛИ ---
+	      "#models h2": "Machine learning models",
+	      "#models p:nth-of-type(1)": "Models tested:",
+	      "#models ul li:nth-child(1)": "Logistic Regression",
+	      "#models ul li:nth-child(2)": "Random Forest",
+	      "#models ul li:nth-child(3)": "CatBoost",
+	      "#models ul li:nth-child(4)": "XGBoost (best)",
+	      "#models table thead tr th:nth-child(1)": "Model",
+	      "#models table thead tr th:nth-child(2)": "MAE",
+	      "#models blockquote": "The model predicts “dividend decrease” (class 0) best; dividend increases are predicted weaker (rare event).",
+	
+	      // --- ROC (XGBOOST) ---
+	      "#models h2:nth-of-type(2)": "ROC analysis",
+	
+	      // --- 3D ROC ---
+	      "#roc3d h2": "3D ROC surface",
+	      "#roc3d .infobox.info-blue div": "<strong>Interpretation:</strong> a surface above the diagonal → confident model; the volume under 3D ROC is maximal for class 0 → decreases are predicted best.",
+	
+	      // --- FEATURE IMPORTANCE ---
+	      "#importance h2": "Feature importance analysis",
+	      "#importance p:nth-of-type(1)": "This section is important: to explain not only which features matter, but also their economic effect.",
+	      "#importance ol li:nth-child(1)": "<strong>Past dividends (total_dividends_lag1)</strong> – strong inertia of dividend policy. Higher past DPS increases the probability of current growth.",
+	      "#importance ol li:nth-child(2)": "<strong>Leverage (debt_to_assets_lag1, debt_to_equity_lag1)</strong> – high debt reduces the ability to pay → increases the probability of dividend cuts.",
+	      "#importance ol li:nth-child(3)": "<strong>Liquidity (cash_to_assets, current_ratio)</strong> – low liquidity → dividend reductions; high liquidity → stability.",
+	      "#importance ol li:nth-child(4)": "<strong>Profit and operating cash flow (net_income_lag1)</strong> – profitable periods correlate with dividend growth.",
+	      "#importance ol li:nth-child(5)": "<strong>Volatility and return</strong> – high volatility → risk → higher chance of dividend cuts.",
+	      "#importance ol li:nth-child(6)": "<strong>ESG</strong> – high governanceScore reduces the probability of sharp dividend cuts.",
+	
+	      // --- ЭКОНОМИЧЕСКОЕ ПРИМЕНЕНИЕ ---
+	      "#economics h2": "Economic application",
+	      "#economics p:nth-of-type(1)": "<strong>Valuation and DCF scenarios.</strong> The forecast of dividend direction allows refining cash flows in a DCF model: dividend growth adds to FCFE and lowers the cost of equity through a confidence effect; cuts signal higher risk and require discount adjustment.",
+	      "#economics p:nth-of-type(2)": "<strong>Factor strategies.</strong> Model signals can be used as a “dividend momentum” factor: build a long portfolio of firms with expected DPS growth and short/underweight those with expected cuts. This increases expected return and improves risk/return.",
+	      "#economics p:nth-of-type(3)": "<strong>Capital allocation.</strong> An investor or fund can reallocate capital between dividend and growth strategies in advance, relying on class probabilities. An expected dividend cut is a reason to move into companies with stable cash flow or bonds.",
+	      "#economics p:nth-of-type(4)": "<strong>Analyst coverage.</strong> Early detection of dividend cut risk helps update target prices and recommendations, avoiding reputational losses from late downgrades.",
+	      "#economics p:nth-of-type(5)": "<strong>Hedging cumulative income.</strong> For income-oriented portfolios the model serves as a hedge signal source: reduce positions or buy options in quarters with a high probability of DPS decrease.",
+	
+	      // --- МЕНЕДЖМЕНТ ---
+	      "#management h2": "Managerial application",
+	      "#management p:nth-of-type(1)": "<strong>Planning the payout ratio.</strong> Management can compare the model’s forecast with internal plans and liquidity stress scenarios: if the probability of cuts is high, adjust payout before announcement to keep policy predictable.",
+	      "#management p:nth-of-type(2)": "<strong>Capital structure and borrowing.</strong> Forecasts of DPS cuts signal pressure on cash flows: they can be used to choose the window for refinancing, bond issues or buybacks, so as not to send a double negative signal to the market.",
+	      "#management p:nth-of-type(3)": "<strong>Early operational risk signals.</strong> A high probability of dividend decreases often correlates with profit drops or higher volatility. The model acts as a trigger to strengthen control over working capital, inventories and CAPEX.",
+	      "#management p:nth-of-type(4)": "<strong>Investor communication.</strong> If maintenance or growth of dividends is likely, the IR team can prepare guidance and explanations in advance, reducing information asymmetry and volatility around the ex-div date.",
+	      "#management p:nth-of-type(5)": "<strong>Sustainability policy.</strong> Including ESG factors in the model helps assess how improving governance reduces the probability of cuts. This gives arguments for boards in favour of investing in transparency and control.",
+	
+	      // --- ВЫВОДЫ ---
+	      "#conclusion h2": "Conclusions",
+	      "#conclusion ul li:nth-child(1)": "Lagged feature changes give a stable predictive signal: macro AUC ≈ 0.76 versus 0.66 for deltas, confirming the inertia of dividend policy and delayed reaction to financial changes.",
+	      "#conclusion ul li:nth-child(2)": "XGBoost shows the best balance of quality and MAE (0.256), which makes it the base model for production use and regular updating.",
+	      "#conclusion ul li:nth-child(3)": "Key signal drivers: inertia of past dividends, leverage, liquidity, profitability and market risk metrics; ESG governance reduces the probability of sharp cuts.",
+	      "#conclusion ul li:nth-child(4)": "Practical value: improved DCF/FCFE valuation, factors for dividend and long/short strategies, early managerial signals for payout, borrowing and investor communication.",
+	      "#conclusion ul li:nth-child(5)": "Next steps: expand the dataset (more regions/sectors), add probability calibration, test robustness on out-of-time samples and implement feature drift monitoring.",
+	
+	      // --- FOOTER И НАВИГАЦИЯ ---
+	      "footer": "Thesis — forecasting the direction of dividend changes · Pavel Popov · 2026",
+	      ".nav h3": "Navigation",
+	      ".nav a[href=\"#top\"]": "Title section",
+	      ".nav a[href=\"#vvedenie\"]": "Introduction",
+	      ".nav a[href=\"#obzor\"]": "Literature review",
+	      ".nav a[href=\"#metod\"]": "Methodology and data",
+	      ".nav a[href=\"#specs\"]": "Specifications",
+	      ".nav a[href=\"#models\"]": "ML models & ROC",
+	      ".nav a[href=\"#roc\"]": "ROC (legacy anchor)",    // если этого id нет – просто не сработает, но и не мешает
+	      ".nav a[href=\"#roc3d\"]": "3D ROC",
+	      ".nav a[href=\"#importance\"]": "Feature importance",
+	      ".nav a[href=\"#economics\"]": "Economic application",
+	      ".nav a[href=\"#management\"]": "Managerial application",
+	      ".nav a[href=\"#conclusion\"]": "Conclusion"
+	    }
+	  };
+	
+	  const ruTexts = {};
+	  Object.keys(translations.en).forEach(selector => {
+	    const target = selector === 'title' ? document.querySelector('title') : document.querySelector(selector);
+	    if (!target) return;
+	    ruTexts[selector] = selector === 'title' ? document.title : target.innerHTML.trim();
+	  });
+	
+	  const setLanguage = (lang) => {
+	    document.body.dataset.lang = lang;
+	    document.documentElement.lang = lang === 'en' ? 'en' : 'ru';
+	    Object.entries(translations.en).forEach(([selector, enText]) => {
+	      const el = selector === 'title' ? document.querySelector('title') : document.querySelector(selector);
+	      if (!el) return;
+	      if (lang === 'en') {
+	        if (selector === 'title') {
+	          document.title = enText;
+	        } else {
+	          el.innerHTML = enText;
+	        }
+	      } else {
+	        const ruValue = ruTexts[selector];
+	        if (ruValue === undefined) return;
+	        if (selector === 'title') {
+	          document.title = ruValue;
+	        } else {
+	          el.innerHTML = ruValue;
+	        }
+	      }
+	    });
+	    if (langToggleBtn) {
+	      langToggleBtn.textContent = lang === 'en' ? 'RU' : 'EN';
+	      langToggleBtn.setAttribute('aria-label', lang === 'en' ? 'Switch to Russian' : 'Switch to English');
+	    }
+	  };
+	
+	  setLanguage('ru');
+	  if (langToggleBtn) {
+	    langToggleBtn.addEventListener('click', () => {
+	      setLanguage(document.body.dataset.lang === 'ru' ? 'en' : 'ru');
+	    });
+	  }
+	}
 
-      const ruTexts = {};
-      Object.keys(translations.en).forEach(selector => {
-        const target = selector === 'title' ? document.querySelector(selector) : document.querySelector(selector);
-        if (!target) return;
-        ruTexts[selector] = selector === 'title' ? document.title : target.innerHTML.trim();
-      });
-      const setLanguage = (lang) => {
-        document.body.dataset.lang = lang;
-        document.documentElement.lang = lang === 'en' ? 'en' : 'ru';
-        Object.entries(translations.en).forEach(([selector, enText]) => {
-          const el = selector === 'title' ? document.querySelector('title') : document.querySelector(selector);
-          if (!el) return;
-          if (lang === 'en') {
-            if (selector === 'title') {
-              document.title = enText;
-            } else {
-              el.innerHTML = enText;
-            }
-          } else {
-            const ruValue = ruTexts[selector];
-            if (ruValue === undefined) return;
-            if (selector === 'title') {
-              document.title = ruValue;
-            } else {
-              el.innerHTML = ruValue;
-            }
-          }
-        });
-        if (langToggleBtn) {
-          langToggleBtn.textContent = lang === 'en' ? 'RU' : 'EN';
-          langToggleBtn.setAttribute('aria-label', lang === 'en' ? 'Switch to Russian' : 'Switch to English');
-        }
-      };
-      setLanguage('ru');
-      if (langToggleBtn) {
-        langToggleBtn.addEventListener('click', () => {
-          setLanguage(document.body.dataset.lang === 'ru' ? 'en' : 'ru');
-        });
-      }
-    }
   </script>
 </body>
 </html>
