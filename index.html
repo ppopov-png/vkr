@@ -320,6 +320,14 @@
         <p>Почти отсутствуют научные работы, посвящённые предсказанию направления изменения дивидендов. Большинство исследований анализирует уровень дивидендов, а не их будущие изменения. Тем не менее направление (рост/падение) вызывает существенно более сильную реакцию рынка.</p>
         <h3>Цель</h3>
         <p>Разработать и оценить ML-модель, классифицирующую изменение дивидендов на следующий квартал.</p>
+		<h3>Глобальная проблема</h3>
+		<ul>
+			<li>Для компаний<li>
+			<p>Дилемма между инвестициями и выплатами: Увеличить дивиденды, чтобы порадовать акционеров и поддержать цену акций, или сохранить капитал для инвестиций в инновации и развитие? Неверный выбор грозит либо оттоком инвесторов, либо потерей конкурентных позиций.</p>
+			<li>Для инвесторов</li>
+			<p>Кажется, всё просто: купил акции — получай дивиденды. Но на деле оказывается, что прошлые выплаты ничего не гарантируют. Компания может годами исправно платить, а потом внезапно урезать дивиденды. Акции падают, доход испаряется, а инвестор остаётся в недоумении: как это предвидеть?</p>
+		</ul>
+        <p>Разработать и оценить ML-модель, классифицирующую изменение дивидендов на следующий квартал.</p>
         <h3>Задачи</h3>
         <ul>
           <li>собрать квартальный панельный датасет;</li>
@@ -621,25 +629,30 @@
 	      ".meta-item:nth-child(3)": "<strong>Year:</strong><br> 2026",
 	      ".meta-item:nth-child(4)": "<strong>Scientific advisor:</strong><br> Kuzmina Elena Valeryevna",
 	
-	      // --- ВВЕДЕНИЕ ---
-	      "#vvedenie h2": "Introduction",
-	      "#vvedenie h3:nth-of-type(1)": "Relevance",
-	      "#vvedenie p:nth-of-type(1)": "Dividends are one of the key sources of income for shareholders and an important indicator of a company’s financial stability. Increases or decreases in dividends affect company value and signal investors about prospects and management strategy. The ability to forecast the direction of dividend changes (increase, unchanged, decrease) gives a significant advantage to analysts, investors and corporate managers.",
-	      "#vvedenie p:nth-of-type(2)": "Markets have become more complex, and classical linear methods (for example, the Lintner model) lose effectiveness because they do not capture nonlinear patterns in data. Machine learning methods allow us to identify complex relationships between financial, market and ESG factors and future dividend decisions.",
-	      "#vvedenie h3:nth-of-type(2)": "Motivation",
-	      "#vvedenie p:nth-of-type(3)": "There are almost no academic works dedicated to predicting the direction of dividend changes. Most research analyses the level of dividends, not their future changes. Yet the direction (increase/decrease) causes a much stronger market reaction.",
-	      "#vvedenie h3:nth-of-type(3)": "Goal",
-	      "#vvedenie p:nth-of-type(4)": "To develop and evaluate an ML model that classifies dividend changes for the next quarter.",
-	      "#vvedenie h3:nth-of-type(4)": "Tasks",
-	      "#vvedenie ul li:nth-child(1)": "collect a quarterly panel dataset;",
-	      "#vvedenie ul li:nth-child(2)": "build two model specifications (current changes and lagged changes);",
-	      "#vvedenie ul li:nth-child(3)": "train several ML algorithms;",
-	      "#vvedenie ul li:nth-child(4)": "compare quality using ROC-AUC;",
-	      "#vvedenie ul li:nth-child(5)": "visualise ROC and 3D ROC;",
-	      "#vvedenie ul li:nth-child(6)": "interpret significant features;",
-	      "#vvedenie ul li:nth-child(7)": "form economic and managerial conclusions.",
-	      "#vvedenie h3:nth-of-type(5)": "Object and subject of research",
-	      "#vvedenie p:nth-of-type(5)": "Object – public companies of the USA; subject – factors influencing the direction of dividend changes.",
+			// --- ВВЕДЕНИЕ ---
+		  "#vvedenie h2": "Introduction",
+		  "#vvedenie h3:nth-of-type(1)": "Relevance",
+		  "#vvedenie p:nth-of-type(1)": "Dividends are one of the key sources of income for shareholders and an important indicator of a company's financial stability. A change in dividend policy (increase, maintenance, or decrease in payouts) directly affects the company's market value, signaling investors about changes in strategy and long-term business prospects. The ability to predict the direction of dividend changes provides significant competitive advantage to both investors and corporate managers.",
+		  "#vvedenie p:nth-of-type(2)": "In the context of increasingly complex financial markets, classical analysis methods (such as the Lintner model) show decreasing effectiveness as they fail to account for nonlinear relationships and modern influencing factors. Machine learning methods allow for identifying complex patterns between financial, market, corporate governance (ESG), and other factors, forming the basis for accurate dividend decision forecasting.",
+		  "#vvedenie h3:nth-of-type(2)": "Motivation",
+		  "#vvedenie p:nth-of-type(3)": "Despite the importance of the topic, there are virtually no scientific works specifically dedicated to forecasting the direction of dividend changes. Most research focuses on analyzing dividend levels or their determinants, whereas the signal about change (increase/decrease) triggers the most significant market reaction and is of greatest interest for practical application.",
+		  "#vvedenie h3:nth-of-type(3)": "Global Problem",
+		  "#vvedenie p:nth-of-type(4)": "Dividend forecasting is not a narrow analytical task, but a solution to a systemic problem at two levels:",
+		  "#vvedenie ul:nth-of-type(1) li:nth-child(1)": "For companies: The dilemma between investments and payouts. Management faces a difficult choice: increase dividends to maintain shareholder loyalty or retain capital for investment in development. An erroneous decision leads either to investor outflow or loss of competitive positions.",
+		  "#vvedenie ul:nth-of-type(1) li:nth-child(2)": "For investors: The \"past ≠ future\" paradox. A company may pay dividends reliably for years, then suddenly cut payouts without obvious warning signals. Investors lack tools to anticipate such changes, leading to suboptimal investment decisions and capital losses.",
+		  "#vvedenie h3:nth-of-type(4)": "Research Goal",
+		  "#vvedenie p:nth-of-type(5)": "To develop and evaluate a machine learning model for classifying the direction of quarterly dividend changes of US public companies (increase, unchanged, decrease).",
+		  "#vvedenie h3:nth-of-type(5)": "Research Tasks",
+		  "#vvedenie ul:nth-of-type(2) li:nth-child(1)": "Form a quarterly panel dataset of financial and market indicators of companies;",
+		  "#vvedenie ul:nth-of-type(2) li:nth-child(2)": "Build two feature specifications: based on absolute changes (deltas) and lagged values;",
+		  "#vvedenie ul:nth-of-type(2) li:nth-child(3)": "Train and compare several machine learning algorithms (logistic regression, random forest, gradient boosting, etc.);",
+		  "#vvedenie ul:nth-of-type(2) li:nth-child(4)": "Evaluate model quality using ROC-AUC and other classification metrics;",
+		  "#vvedenie ul:nth-of-type(2) li:nth-child(5)": "Visualize results (ROC curves, 3D visualizations of feature importance);",
+		  "#vvedenie ul:nth-of-type(2) li:nth-child(6)": "Interpret significant features influencing the forecast;",
+		  "#vvedenie ul:nth-of-type(2) li:nth-child(7)": "Formulate economic conclusions and recommendations for investors and managers.",
+		  "#vvedenie h3:nth-of-type(6)": "Object and Subject of Research",
+		  "#vvedenie p:nth-of-type(6)": "Object of research: US public companies paying quarterly dividends.",
+		  "#vvedenie p:nth-of-type(7)": "Subject of research: Factors and patterns influencing dividend payout change decisions, and the possibility of forecasting them using machine learning methods.",
 	
 	      // --- ОБЗОР ЛИТЕРАТУРЫ ---
 	      "#obzor h2": "Literature review",
